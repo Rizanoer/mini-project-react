@@ -9,13 +9,11 @@ export default function App() {
   const [status, setStatus] = useState("tambah");
   const [id_pelanggan, setIdPelanggan] = useState("");
 
-
-  // Ambil data pelanggan dari Laravel API
   useEffect(() => {
     api.get("/pelanggans")
       .then((response) => {
-        console.log("Response dari API:", response.data); // Debugging
-        setPelanggans(response.data.pelanggans); // Simpan ke state
+        console.log("Response dari API:", response.data);
+        setPelanggans(response.data.pelanggans);
         setIdPelanggan(response.data.id_pelanggan);
       })
       .catch((error) => console.error("Error fetching data:", error));
@@ -27,12 +25,10 @@ export default function App() {
     }
   }, [status, id_pelanggan]);
 
-  // Fungsi untuk menangani input form
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // Fungsi untuk menambah atau mengupdate pelanggan
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -51,13 +47,11 @@ export default function App() {
     }
   };
 
-  // Fungsi untuk edit data pelanggan
   const handleEdit = (pelanggan) => {
     setForm(pelanggan);
     setEditMode(true);
   };
 
-  // Fungsi untuk menghapus pelanggan
   const handleDelete = async (id) => {
     try {
       const response = await api.delete(`/pelanggans/${id}`);
@@ -68,7 +62,6 @@ export default function App() {
     }
   };
 
-  // Reset form setelah submit
   const resetForm = () => {
     setForm({ id_pelanggan: id_pelanggan, nama: "", domisili: "", jenis_kelamin: "" });
     setEditMode(false);
@@ -78,51 +71,79 @@ export default function App() {
     <div className="container">
       <h2>Data Pelanggan</h2>
       <section style={{ marginBottom: 30 }}>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>ID Pelanggan: </label>
+        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          {/* ID Pelanggan */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+            <label htmlFor="id_pelanggan">ID Pelanggan:</label>
             <input 
+              id="id_pelanggan"
               name="id_pelanggan"
               placeholder="ID Pelanggan"
               value={form.id_pelanggan}
-              onChange={handleChange} required readOnly
+              onChange={handleChange}
+              required
+              readOnly
             />
           </div>
-          <div>
-            <label>Nama: </label>
-            <input name="nama" placeholder="Nama" value={form.nama} onChange={handleChange} required />
-          </div>
-          <div>
-            <label>Domisili: </label>
-            <input name="domisili" placeholder="Domisili" value={form.domisili} onChange={handleChange} required />
-          </div>
-          <div>
-            <label>Jenis Kelamin: </label>
-            <label>
-              <input
-                type="radio"
-                name="jenis_kelamin"
-                value="PRIA"
-                checked={form.jenis_kelamin === "PRIA"}
-                onChange={handleChange}
-              />
-              PRIA
-            </label>
 
-            <label>
-              <input
-                type="radio"
-                name="jenis_kelamin"
-                value="WANITA"
-                checked={form.jenis_kelamin === "WANITA"}
-                onChange={handleChange}
-              />
-              WANITA
-            </label>
+          {/* Nama */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+            <label htmlFor="nama">Nama:</label>
+            <input 
+              id="nama"
+              name="nama"
+              placeholder="Nama"
+              value={form.nama}
+              onChange={handleChange}
+              required
+            />
           </div>
-          <div>
-            <button type="submit" style={{ marginTop: 10 }}>{editMode ? "Update" : "Tambah"} Pelanggan</button>
-            {editMode && <button onClick={resetForm}>Batal</button>}
+
+          {/* Domisili */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+            <label htmlFor="domisili">Domisili:</label>
+            <input 
+              id="domisili"
+              name="domisili"
+              placeholder="Domisili"
+              value={form.domisili}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          {/* Jenis Kelamin */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+            <label>Jenis Kelamin:</label>
+            <div style={{ display: "flex", gap: 10 }}>
+              <label>
+                <input
+                  type="radio"
+                  name="jenis_kelamin"
+                  value="PRIA"
+                  checked={form.jenis_kelamin === "PRIA"}
+                  onChange={handleChange}
+                />
+                PRIA
+              </label>
+
+              <label>
+                <input
+                  type="radio"
+                  name="jenis_kelamin"
+                  value="WANITA"
+                  checked={form.jenis_kelamin === "WANITA"}
+                  onChange={handleChange}
+                />
+                WANITA
+              </label>
+            </div>
+          </div>
+
+          {/* Tombol Aksi */}
+          <div style={{ display: "flex", gap: 10, marginTop: 10 }}>
+            <button type="submit">{editMode ? "Update" : "Tambah"} Pelanggan</button>
+            {editMode && <button type="button" onClick={resetForm}>Batal</button>}
           </div>
         </form>
       </section>

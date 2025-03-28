@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "/api", // Ubah jadi hanya "/api"
+  baseURL: "/api",
   headers: {
     "Content-Type": "application/json",
   },

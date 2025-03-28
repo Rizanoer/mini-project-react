@@ -3,8 +3,8 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import App from "./App";
 import Pelanggan from "./pages/Pelanggan";
-// import Products from "./pages/Products";
-// import Sales from "./pages/Sales";
+import Barang from "./pages/Barang";
+import Penjualan from "./pages/Penjualan";
 import "./styles.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -13,8 +13,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <App />
       <Routes>
         <Route path="/" element={<Pelanggan />} />
-        {/* <Route path="/products" element={<Products />} />
-        <Route path="/sales" element={<Sales />} /> */}
+        <Route path="/barangs" element={<Barang />} />
+        <Route path="/penjualans" element={<Penjualan />} />
       </Routes>
     </Router>
   </React.StrictMode>

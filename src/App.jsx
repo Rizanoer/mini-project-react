@@ -6,8 +6,8 @@ export default function App() {
       <h2>Mini Projek</h2>
       <ul style={{ display: "flex", gap: 15, listStyle: "none", padding: 0 }}>
         <li><Link to="/">Data Pelanggan</Link></li>
-        {/* <li><Link to="/products">Data Barang</Link></li>
-        <li><Link to="/sales">Data Penjualan</Link></li> */}
+        <li><Link to="/barangs">Data Barang</Link></li>
+        <li><Link to="/penjualans">Data Penjualan</Link></li>
       </ul>
       <hr />
     </nav>
